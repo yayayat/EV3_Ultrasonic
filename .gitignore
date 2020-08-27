@@ -1,0 +1,14 @@
+#exclude every file with no extension
+*
+!/**/
+!*.*
+
+build
+#exclude . dirs and files
+.*
+
+*.bin
+
+#files we do not want to ignore
+!.gitignore
+!makefile
