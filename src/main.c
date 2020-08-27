@@ -59,16 +59,33 @@ void main() {
         TIM1_CR1 &= ~TIM_CR1_CEN;
 
         uint32_t temp=((uint32_t)TIM1_CNTRH << 8) | (uint32_t)TIM1_CNTRL;
-        temp*=343;
-        temp/=4000;
 
         //xprintf("%lu\n", temp);
-
-        uint8_t buf[2];
-        buf[0]=temp;
-        buf[1]=temp>>8;
-        sendData(0, 2, buf);
         
+        uint8_t buf[2];
+        if(curMode==0){
+            temp*=43;
+            temp/=500;
+            buf[0]=temp;
+            buf[1]=temp>>8;
+            sendData(curMode, 1, buf);
+        }
+        else if(curMode==1){
+            temp*=27;
+            temp/=800;
+            buf[0]=temp;
+            buf[1]=temp>>8;
+            sendData(curMode,1,buf);
+        }
+        else if(curMode==2){
+            *buf=0xFF;
+            sendData(2, 0, buf);
+        }
+        else{
+            buf[0]=0xFF;
+            buf[1]=0xFF;
+            sendData(curMode,1,buf);
+        }
         TIM1_CNTRH=0;
         TIM1_CNTRL=0;
     }

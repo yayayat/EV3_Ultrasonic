@@ -1,7 +1,7 @@
 BUILD_DIR = build
 TARGET  ?= main
 
-MCU     = stm8s103f3
+MCU     = stm8s003f3
 ARCH    = stm8
 
 F_CPU   ?= 2000000
@@ -47,7 +47,7 @@ $(BUILD_DIR)/%.rel: %.s
 size: $(BUILD_DIR)/$(TARGET).ihx
 	@$(OBJCOPY) -I ihex --output-target=binary $(BUILD_DIR)/$(TARGET).ihx $(TARGET).bin
 	@echo "Image size:"
-	@stat -L -c %s $(TARGET).bin
+	# @stat -L -c %s $(TARGET).bin
 
 
 flash: size
